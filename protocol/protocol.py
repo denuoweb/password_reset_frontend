@@ -67,19 +67,6 @@ class Token(Response):
     def username(self):
         return self.data['username']
 
-    def __str__(self):
-        token_datetime = self.creation_time
-        day = token_datetime.day
-        month = token_datetime.month
-        year = token_datetime.year
-        hour = token_datetime.hour
-        minute = token_datetime.minute
-        second = token_datetime.second
-
-        return json.dumps(
-            {'message_type': self.message_type, 'username': self.username, 'day': day, 'month': month, 'year': year,
-             'hour': hour, 'minute': minute, 'second': second})
-
 
 class Success(Response):
     def __init__(self):
