@@ -6,3 +6,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+/vcs.xml
+/inspectionProfiles/profiles_settings.xml
+/password-reset-backend.iml
+/modules.xml
+/misc.xml
