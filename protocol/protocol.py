@@ -2,17 +2,34 @@ import json
 from datetime import datetime
 
 
+class Email:
+    def __init__(self, email: str):
+        self._address: str | None = None
+        size = email.count('@')
+        if size > 1 or size == 0:
+            raise TypeError("Not a valid address")
+        else:
+            self._address = email
+
+    @property
+    def address(self):
+        return self._address
+
+
 class Message:
     def __init__(self):
-        self.message_type = type(self).__name__
+        self._message_type = type(self).__name__
+
+    @property
+    def message_type(self):
+        return self._message_type
 
 
 # Message Types
 class Request(Message):
-    def __init__(self, username: str, password: str = None):
+    def __init__(self, username: str):
         super().__init__()
         self._username = username
-        self._password = password
 
     @property
     def username(self):
@@ -22,14 +39,12 @@ class Request(Message):
         return json.dumps({
             'message_type': self.message_type,
             'username': self.username,
-            'password': self._password
         })
 
 
 class Response(Message):
     def __init__(self, **kwargs):
         super().__init__()
-        self.message_type = type(self).__name__
         self.data = kwargs
 
     def __str__(self):
@@ -47,17 +62,21 @@ class Lookup(Request):
 
 class Update(Request):
     def __init__(self, username: str, password: str):
-        super().__init__(username, password)
+        super().__init__(username)
+        self._password = password
 
     @property
     def password(self):
         return self._password
 
+    def __str__(self):
+        return json.dumps({'message_type': self.message_type, 'username': self.username, 'password': self.password})
+
 
 # Response Types
 class Token(Response):
-    def __init__(self, username: str, creation_time: datetime):
-        super().__init__(username=username, creation_time=creation_time)
+    def __init__(self, username: str, creation_time: datetime, email: Email):
+        super().__init__(username=username, creation_time=creation_time, email=email)
 
     @property
     def creation_time(self):
@@ -66,6 +85,15 @@ class Token(Response):
     @property
     def username(self):
         return self.data['username']
+
+    @property
+    def email(self):
+        return self.data['email'].address
+
+    def __str__(self):
+        time = self.creation_time.isoformat()
+        return json.dumps(
+            {"message_type": self.message_type, "username": self.username, "creation_time": time, "email": self.email})
 
 
 class Success(Response):
@@ -86,16 +114,23 @@ def message_builder(json_str: str) -> Message:
     json_dict = json.loads(json_str)
     message = None
 
+    if 'message_type' not in json_dict:
+        raise TypeError("Not a Message")
+
     match json_dict['message_type']:
         case 'Lookup':
             message = Lookup(json_dict['username'])
         case 'Update':
             message = Update(json_dict['username'], json_dict['password'])
         case 'Token':
-            message = Token(json_dict['username'], json_dict['creation_time'])
+            time = datetime.fromisoformat(json_dict['creation_time'])
+            email = Email(json_dict['email'])
+            message = Token(json_dict['username'], creation_time=time, email=email)
         case 'Success':
             message = Success()
         case 'Error':
             message = Error(json_dict['error'])
+        case _:
+            raise TypeError("Unknown Message type")
 
     return message
