@@ -2,14 +2,24 @@ import json
 from datetime import datetime
 
 
+def _validate(**kwargs) -> None:
+    for key in kwargs.items():
+        if len(key) > 256:
+            raise ValueError("{} is longer than 256 characters".format(key))
+
+
 class Email:
     def __init__(self, email: str):
+        _validate(email=email)
         self._address: str | None = None
         size = email.count('@')
         if size > 1 or size == 0:
             raise TypeError("Not a valid address")
-        else:
-            self._address = email
+        elif domain := email.split('@')[1] != "my.lancc.edu":
+            if domain != "lanecc.edu":
+                raise TypeError("Not a valid address")
+
+        self._address = email
 
     @property
     def address(self):
@@ -29,6 +39,7 @@ class Message:
 class Request(Message):
     def __init__(self, username: str):
         super().__init__()
+        _validate(username=username)
         self._username = username
 
     @property
@@ -45,6 +56,7 @@ class Request(Message):
 class Response(Message):
     def __init__(self, **kwargs):
         super().__init__()
+        _validate(**kwargs)
         self.data = kwargs
 
     def __str__(self):
@@ -63,6 +75,7 @@ class Lookup(Request):
 class Update(Request):
     def __init__(self, username: str, password: str):
         super().__init__(username)
+        _validate(password=password)
         self._password = password
 
     @property
