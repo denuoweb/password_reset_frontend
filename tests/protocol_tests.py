@@ -7,8 +7,10 @@ from protocol import Email, Request, Response, Lookup, Update, Token, Success, E
 class TestProtocol(unittest.TestCase):
     def test_email_valid(self):
         # Test a valid email address
-        email = Email("test@example.com")
-        self.assertEqual(email.address, "test@example.com")
+        email = Email("test@my.lanecc.edu")
+        self.assertEqual(email.address, "test@my.lanecc.edu")
+        email = Email("test@lanecc.edu")
+        self.assertEqual(email.address, "test@lanecc.edu")
 
     def test_email_invalid(self):
         # Test an invalid email address
@@ -42,9 +44,9 @@ class TestProtocol(unittest.TestCase):
     def test_token_response_serialization(self):
         # Test serialization of Token Response
         creation_time = datetime(2023, 1, 1, 0, 0, 0)
-        email = Email("test@example.com")
+        email = Email("test@lanecc.edu")
         token_response = Token("testuser", creation_time, email)
-        expected_json = '{"message_type": "Token", "username": "testuser", "creation_time": "2023-01-01T00:00:00", "email": "test@example.com"}'
+        expected_json = '{"message_type": "Token", "username": "testuser", "creation_time": "2023-01-01T00:00:00", "email": "test@lanecc.edu"}'
         self.assertEqual(str(token_response), expected_json)
 
     def test_success_response_serialization(self):
@@ -74,11 +76,11 @@ class TestProtocol(unittest.TestCase):
         self.assertEqual(update_message.password, "newpassword")
 
         # Test Token Response
-        token_json = '{"message_type": "Token", "username": "testuser", "creation_time": "2023-01-01T00:00:00", "email": "test@example.com"}'
+        token_json = '{"message_type": "Token", "username": "testuser", "creation_time": "2023-01-01T00:00:00", "email": "test@lanecc.edu"}'
         token_message = message_builder(token_json)
         self.assertIsInstance(token_message, Token)
         self.assertEqual(token_message.username, "testuser")
-        self.assertEqual(token_message.email, "test@example.com")
+        self.assertEqual(token_message.email, "test@lanecc.edu")
 
         # Test Success Response
         success_json = '{"message_type": "Success"}'

@@ -15,11 +15,12 @@ class Email:
         size = email.count('@')
         if size > 1 or size == 0:
             raise TypeError("Not a valid address")
-        elif domain := email.split('@')[1] != "my.lancc.edu":
-            if domain != "lanecc.edu":
-                raise TypeError("Not a valid address")
 
-        self._address = email
+        match email.split('@')[1]:
+            case "my.lanecc.edu" | "lanecc.edu":
+                self._address = email
+            case _:
+                raise TypeError("Not a valid address")
 
     @property
     def address(self):
