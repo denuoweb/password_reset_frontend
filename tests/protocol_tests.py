@@ -19,8 +19,8 @@ class TestProtocol(unittest.TestCase):
 
     def test_request_serialization(self):
         # Test serialization of Request
-        request = Request("testuser")
-        expected_json = '{"message_type": "Request", "username": "testuser"}'
+        request = Request()
+        expected_json = '{"message_type": "Request"}'
         self.assertEqual(str(request), expected_json)
 
     def test_response_serialization(self):
@@ -31,8 +31,9 @@ class TestProtocol(unittest.TestCase):
 
     def test_lookup_request_serialization(self):
         # Test serialization of Lookup Request
-        lookup_request = Lookup("testuser")
-        expected_json = '{"message_type": "Lookup", "username": "testuser"}'
+        email = Email('example@lanecc.edu')
+        lookup_request = Lookup(email)
+        expected_json = '{"message_type": "Lookup", "email": "example@lanecc.edu"}'
         self.assertEqual(str(lookup_request), expected_json)
 
     def test_update_request_serialization(self):
@@ -63,10 +64,10 @@ class TestProtocol(unittest.TestCase):
 
     def test_message_builder(self):
         # Test Lookup Request
-        lookup_json = '{"message_type": "Lookup", "username": "testuser"}'
+        lookup_json = '{"message_type": "Lookup", "email": "example@lanecc.edu"}'
         lookup_message = message_builder(lookup_json)
         self.assertIsInstance(lookup_message, Lookup)
-        self.assertEqual(lookup_message.username, "testuser")
+        self.assertEqual(lookup_message.email, "example@lanecc.edu")
 
         # Test Update Request
         update_json = '{"message_type": "Update", "username": "testuser", "password": "newpassword"}'

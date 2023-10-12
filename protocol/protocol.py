@@ -35,23 +35,13 @@ class Message:
     def message_type(self):
         return self._message_type
 
-
-# Message Types
-class Request(Message):
-    def __init__(self, username: str):
-        super().__init__()
-        _validate(username=username)
-        self._username = username
-
-    @property
-    def username(self):
-        return self._username
-
     def __str__(self):
-        return json.dumps({
-            'message_type': self.message_type,
-            'username': self.username,
-        })
+        return json.dumps({'message_type': self.message_type})
+
+
+class Request(Message):
+    def __init__(self):
+        super().__init__()
 
 
 class Response(Message):
@@ -69,15 +59,31 @@ class Response(Message):
 
 # Request Types
 class Lookup(Request):
-    def __init__(self, username: str):
-        super().__init__(username)
+    def __init__(self, email: Email):
+        super().__init__()
+        self._email = email
+
+    @property
+    def email(self):
+        return self._email
+
+    def __str__(self):
+        return json.dumps({
+            'message_type': self.message_type,
+            'email': self.email.address,
+        })
 
 
 class Update(Request):
     def __init__(self, username: str, password: str):
-        super().__init__(username)
-        _validate(password=password)
+        super().__init__()
+        _validate(password=password, username=username)
+        self._username = username
         self._password = password
+
+    @property
+    def username(self):
+        return self._username
 
     @property
     def password(self):
@@ -133,7 +139,7 @@ def message_builder(json_str: str) -> Message:
 
     match json_dict['message_type']:
         case 'Lookup':
-            message = Lookup(json_dict['username'])
+            message = Lookup(json_dict['email'])
         case 'Update':
             message = Update(json_dict['username'], json_dict['password'])
         case 'Token':
