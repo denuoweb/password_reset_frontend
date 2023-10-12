@@ -19,7 +19,7 @@ This project is a secure password reset system allowing users to reset their pas
 ```pip install -r requirements.txt```  
 
 ## Usage
-0. Run: '''export PYTHONPATH=$PYTHONPATH:~/Documents/password-reset-site'''
+0. Run: ```export PYTHONPATH=$PYTHONPATH:~/Documents/password-reset-site```
 
 1. Start the server:  
 ```python3 server/server.py```
