@@ -51,6 +51,15 @@ The `tests` directory contains unit tests to ensure the reliability and correctn
 - `tests/server_dummy.py`: A dummy server used for testing purposes.
 - `tests/server_tests.py`: Tests related to the server functionality.
 - `tests/test_frontend.py`: Tests related to the Flask frontend.
+     - **test_home_page**: Validates that the home page is accessible and displays the correct content.
+     - **test_token_submission**: Ensures that the token submission mechanism works correctly.
+     - **test_error_page**: Checks if the error page can be accessed and shows the right content.
+     - **test_reset_page**: Tests the password reset page's GET and POST operations to ensure proper functionality.
+     - **test_invalid_email_submission**: Confirms that submitting an invalid email returns an error message.
+     - **test_submit_edu_email**: Validates the behavior when a `.edu` email is submitted, expecting a successful operation.
+     - **test_submit_non_edu_email**: Checks the behavior when a non-`.edu` email is submitted, expecting an error message.
+     - **test_password_reset**: Validates that the password reset mechanism functions properly when provided with a token.
+
 
 
 ## Configurations
