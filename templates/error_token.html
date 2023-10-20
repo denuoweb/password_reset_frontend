@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <style>
+        /* These styles are placeholders. Replace with actual styles from the college's website or your own custom styles */
+        body {
+            background-image: url('https://www.lanecc.edu/sites/default/files/styles/homehero_lg/public/homepage/CurrentSpringHero2023.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: sans-serif;
+        }
+        .container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 18px;
+            margin: auto;
+            width: 50%;
+            margin-top: 10%;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Password Reset Error</h1>
+
+    <div class="error">
+        <p>{{ error_message }}</p> <!-- This is where the error message will be inserted -->
+    </div>
+
+    <p>Please try again or contact support for assistance.</p>
+
+    <!-- You can add a link back to the password reset form or to the homepage -->
+    <p><a href="{{ url_for('home') }}">Go back to homepage</a></p>
+</body>
+
+</html>
