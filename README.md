@@ -43,6 +43,7 @@ The `templates` directory contains HTML templates used by the Flask application 
 - `templates/reset_page.html`: The page where users input their new password.
 - `templates/success.html`: Displayed when a user successfully submits their email.
 - `templates/success_token.html`: Displayed when a token operation is successful.
+- `templates/thank_you.html`: Displayed when a user successfully submits their email.
 
 ### Tests
 The `tests` directory contains unit tests to ensure the reliability and correctness of the application:
@@ -51,16 +52,6 @@ The `tests` directory contains unit tests to ensure the reliability and correctn
 - `tests/server_dummy.py`: A dummy server used for testing purposes.
 - `tests/server_tests.py`: Tests related to the server functionality.
 - `tests/test_frontend.py`: Tests related to the Flask frontend.
-     - **test_home_page**: Validates that the home page is accessible and displays the correct content.
-     - **test_token_submission**: Ensures that the token submission mechanism works correctly.
-     - **test_error_page**: Checks if the error page can be accessed and shows the right content.
-     - **test_reset_page**: Tests the password reset page's GET and POST operations to ensure proper functionality.
-     - **test_invalid_email_submission**: Confirms that submitting an invalid email returns an error message.
-     - **test_submit_edu_email**: Validates the behavior when a `.edu` email is submitted, expecting a successful operation.
-     - **test_submit_non_edu_email**: Checks the behavior when a non-`.edu` email is submitted, expecting an error message.
-     - **test_password_reset**: Validates that the password reset mechanism functions properly when provided with a token.
-
-
 
 ## Configurations
 The server provides multiple configuration options, either via command line arguments or via a TOML-based configuration file. These include:
@@ -129,4 +120,4 @@ Password Reset Site is an initiative by LCC-CIT-Lab to provide a secure and stra
 ## Contact
 
 - GitHub: @LCC-CIT-Lab
-- Email: riddlej@lanecc.edu
+- Email: CITLab@lanecc.edu
