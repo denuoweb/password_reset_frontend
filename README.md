@@ -28,6 +28,27 @@ python3 server/server.py
 python3 site/frontend.py
 ```
 
+5. Install and configure msmtp
+```
+sudo apt install msmtp
+nano ~/.msmtprc
+
+# Set default values for all following accounts.
+defaults
+auth           off
+tls            off
+logfile        ~/.msmtp.log
+
+# Local SMTP Server
+account        myapp
+host           localhost
+port           25
+from           no-reply@lanecc.edu
+
+# Set a default account
+account default : myapp
+```
+
 ## Project Structure
 
 - `protocol/protocol.py`: Provides message classes used by `server.py` to format requests and responses.
@@ -72,9 +93,11 @@ Use a configuration file for consistent setups, and command line arguments for o
 ## Dependencies
 - Flask for web application development
 - `tomllib` for TOML configuration parsing
+- `msmtp` for e-mail sending
 
 ## Third Party Libraries
 - `tomllib`: Used for parsing TOML configuration files.
+- `msmtp`: Used for emailing the reset token.
 
 ## Examples
 
@@ -103,15 +126,6 @@ Frontend testing has been set up using Python's unittest module. Tests cover the
 ```
 python -m unittest tests/test_frontend.py
 ```
-
-## TODO
-
- - Implement basic server logic and frontend interaction.
- - Implement frontend tests.
- - Handle edge cases and exceptions in server-client communication.
- - Refactor frontend for better error handling.
- - Implement token-based authentication for added security.
- - Extend README with more detailed code examples and use cases.
 
 ## About
 
