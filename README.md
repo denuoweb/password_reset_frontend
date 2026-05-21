@@ -135,3 +135,11 @@ Password Reset Site is an initiative by LCC-CIT-Lab to provide a secure and stra
 
 - GitHub: @LCC-CIT-Lab
 - Email: CITLab@lanecc.edu
+
+## Portfolio Case Study
+
+This repository is part of Jaron Rosenau's implementation, developer-support, and integration engineering portfolio. The public case study summarizes the problem, delivery scope, architecture, and operational result.
+
+- Case study: [Password Reset Site implementation case study](https://rosenau.info/projects/TGetQIzHyxZUVfxu2Pq0)
+- Full portfolio: [Jaron Rosenau](https://rosenau.info)
+- Summary: Secure password-reset frontend and backend workflow with operational boundaries around token handling and support.
